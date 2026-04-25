@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.autoMirrored.Filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -54,7 +54,7 @@ fun LibroDetailScreen(libroId: Int, navController: NavController, viewModel: Lib
                             .padding(16.dp)
                     ) {
                         AsyncImage(
-                            model = libro.imagenUrl,
+                            model = libro.imageUrl,
                             contentDescription = null,
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -82,7 +82,12 @@ fun LibroDetailScreen(libroId: Int, navController: NavController, viewModel: Lib
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Button(
-                                onClick = { /* TODO: Implementar eliminación */ },
+                                onClick = {
+                                    viewModel.eliminarLibro(libroId)
+                                    navController.navigate("libro_list") {
+                                        popUpTo("libro_list") { inclusive = true }
+                                    }
+                                },
                                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
                                 modifier = Modifier.weight(1f)
                             ) {

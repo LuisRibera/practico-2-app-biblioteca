@@ -50,4 +50,16 @@ class LibroViewModel : ViewModel() {
             )
         }
     }
+
+    fun eliminarLibro(id: Int) {
+        viewModelScope.launch {
+            try {
+                repository.eliminarLibro(id)
+                _listState.value = LibroListUiState.Loading //refrescar la lista tras eliminar
+                cargarLibros()
+            } catch (e: Exception) {
+                _listState.value = LibroListUiState.Error(e.message ?: "Error al eliminar el libro")
+            }
+        }
+    }
 }
