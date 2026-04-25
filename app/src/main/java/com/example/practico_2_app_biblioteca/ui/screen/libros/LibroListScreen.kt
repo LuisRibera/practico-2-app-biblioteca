@@ -7,14 +7,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.autoMirrored.filled.Label
+import androidx.compose.material.icons.autoMirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Label
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -78,7 +77,7 @@ fun LibroListScreen(navController: NavController) {
                             popUpTo(Routes.LIBRO_LIST) { inclusive = true }
                         }
                     },
-                    icon = { Icon(Icons.Default.MenuBook, contentDescription = "Libros") },
+                    icon = { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = "Libros") },
                     label = { Text("Libros") }
                 )
                 NavigationBarItem(
@@ -88,14 +87,14 @@ fun LibroListScreen(navController: NavController) {
                             popUpTo(Routes.LIBRO_LIST) { inclusive = false }
                         }
                     },
-                    icon = { Icon(Icons.Default.Label, contentDescription = "Géneros") },
+                    icon = { Icon(Icons.AutoMirrored.Filled.Label, contentDescription = "Géneros") },
                     label = { Text("Géneros") }
                 )
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { navController.navigate(Routes.LIBRO_CREATE) }) {
-                Icon(Icons.Default.Add, contentDescription = "Agregar libro")
+                Icon(Icons.Filled.Add, contentDescription = "Agregar libro")
             }
         }
     ) { innerPadding ->
@@ -136,7 +135,7 @@ private fun LibroItem(libro: LibroDto, onClick: () -> Unit) {
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             AsyncImage(
-                model = libro.imagen,
+                model = libro.imageUrl,
                 contentDescription = libro.nombre,
                 modifier = Modifier
                     .width(72.dp)

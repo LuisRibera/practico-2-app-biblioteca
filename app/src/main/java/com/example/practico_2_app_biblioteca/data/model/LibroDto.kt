@@ -7,7 +7,7 @@ data class LibroDto(
     @SerializedName("nombre") val nombre: String,
     @SerializedName("autor") val autor: String,
     @SerializedName("editorial") val editorial: String,
-    @SerializedName("imagen") val imagen: String,
+    @SerializedName("imagen") val imageUrl: String,
     @SerializedName("sinopsis") val sinopsis: String,
     @SerializedName("isbn") val isbn: String,
     @SerializedName("calificacion") val calificacion: Int
