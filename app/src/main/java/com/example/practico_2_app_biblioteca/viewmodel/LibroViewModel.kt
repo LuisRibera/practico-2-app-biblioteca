@@ -97,13 +97,21 @@ class LibroViewModel : ViewModel() {
     }
 
     fun eliminarLibro(id: Int) {
+        if (_isSubmitting.value) return
         viewModelScope.launch {
+            _isSubmitting.value = true
             try {
-                repository.eliminarLibro(id)
-                _listState.value = LibroListUiState.Loading
-                cargarLibros()
-            } catch (e: Exception) {
-                _listState.value = LibroListUiState.Error(e.message ?: "Error al eliminar el libro")
+                repository.eliminarLibro(id).fold(
+                    onSuccess = {
+                        _uiEvent.emit(UiEvent.ShowMessage("Libro eliminado exitosamente"))
+                        _uiEvent.emit(UiEvent.NavigateBack)
+                    },
+                    onFailure = { e ->
+                        _uiEvent.emit(UiEvent.ShowMessage("Error al eliminar el libro: ${e.message}"))
+                    }
+                )
+            } finally {
+                _isSubmitting.value = false
             }
         }
     }
