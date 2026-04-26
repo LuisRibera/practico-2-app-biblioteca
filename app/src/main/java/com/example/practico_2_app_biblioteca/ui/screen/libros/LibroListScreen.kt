@@ -11,9 +11,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.autoMirrored.filled.Label
-import androidx.compose.material.icons.autoMirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Label
+import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -77,7 +77,7 @@ fun LibroListScreen(navController: NavController) {
                             popUpTo(Routes.LIBRO_LIST) { inclusive = true }
                         }
                     },
-                    icon = { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = "Libros") },
+                    icon = { Icon(Icons.Filled.MenuBook, contentDescription = "Libros") },
                     label = { Text("Libros") }
                 )
                 NavigationBarItem(
@@ -87,7 +87,7 @@ fun LibroListScreen(navController: NavController) {
                             popUpTo(Routes.LIBRO_LIST) { inclusive = false }
                         }
                     },
-                    icon = { Icon(Icons.AutoMirrored.Filled.Label, contentDescription = "Géneros") },
+                    icon = { Icon(Icons.Filled.Label, contentDescription = "Géneros") },
                     label = { Text("Géneros") }
                 )
             }

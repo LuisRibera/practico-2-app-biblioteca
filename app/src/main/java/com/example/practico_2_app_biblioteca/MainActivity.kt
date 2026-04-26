@@ -4,9 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.practico_2_app_biblioteca.ui.navigation.AppNavHost
 import com.example.practico_2_app_biblioteca.ui.theme.Practico_2_app_bibliotecaTheme
+import com.example.practico_2_app_biblioteca.viewmodel.LibroViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +17,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             Practico_2_app_bibliotecaTheme {
                 val navController = rememberNavController()
-                AppNavHost(navController = navController)
+                val viewModel: LibroViewModel = viewModel()
+                AppNavHost(navController = navController, viewModel = viewModel)
             }
         }
     }
