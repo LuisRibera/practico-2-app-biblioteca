@@ -24,10 +24,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -45,12 +48,23 @@ import com.example.practico_2_app_biblioteca.ui.components.LoadingView
 import com.example.practico_2_app_biblioteca.ui.navigation.Routes
 import com.example.practico_2_app_biblioteca.viewmodel.LibroListUiState
 import com.example.practico_2_app_biblioteca.viewmodel.LibroViewModel
+import com.example.practico_2_app_biblioteca.viewmodel.UiEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibroListScreen(navController: NavController) {
     val viewModel: LibroViewModel = viewModel()
     val state by viewModel.listState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowMessage -> Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                is UiEvent.NavigateBack -> navController.popBackStack()
+            }
+        }
+    }
 
     val lifecycleOwner = LocalLifecycleOwner.current
     DisposableEffect(lifecycleOwner) {
@@ -113,6 +127,8 @@ fun LibroListScreen(navController: NavController) {
                     )
                 } else {
                     LazyColumn(modifier = Modifier.padding(innerPadding)) {
+                        //crea un item por cada libro, mostrando su imagen, titulo y autor
+                        //cuando se clickea un libro, navega a su detalle
                         items(s.libros) { libro ->
                             LibroItem(libro = libro, onClick = {
                                 navController.navigate(Routes.libroDetail(libro.id))
@@ -127,6 +143,8 @@ fun LibroListScreen(navController: NavController) {
 
 @Composable
 private fun LibroItem(libro: LibroDto, onClick: () -> Unit) {
+    //tarjeta de libro con imagen titulo y autor
+    //detecta el click generado por el item y ejecuta la funcion onClick
     Card(
         modifier = Modifier
             .fillMaxWidth()
