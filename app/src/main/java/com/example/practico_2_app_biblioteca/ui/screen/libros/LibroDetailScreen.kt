@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.example.practico_2_app_biblioteca.ui.components.ConfirmDialog
 import com.example.practico_2_app_biblioteca.ui.components.ErrorView
 import com.example.practico_2_app_biblioteca.ui.components.LoadingView

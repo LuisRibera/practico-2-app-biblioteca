@@ -1,6 +1,5 @@
 package com.example.practico_2_app_biblioteca.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,6 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.practico_2_app_biblioteca.ui.screen.generos.GeneroFormScreen
+import com.example.practico_2_app_biblioteca.ui.screen.generos.GeneroListScreen
 import com.example.practico_2_app_biblioteca.ui.screen.libros.LibroDetailScreen
 import com.example.practico_2_app_biblioteca.ui.screen.libros.LibroFormScreen
 import com.example.practico_2_app_biblioteca.ui.screen.libros.LibroListScreen
@@ -61,11 +62,11 @@ fun AppNavHost(
         }
 
         composable(Routes.GENERO_LIST) {
-            Text("Próximamente — Géneros")
+            GeneroListScreen(navController = navController)
         }
 
         composable(Routes.GENERO_CREATE) {
-            Text("Próximamente — Crear género")
+            GeneroFormScreen(navController = navController)
         }
     }
 }
