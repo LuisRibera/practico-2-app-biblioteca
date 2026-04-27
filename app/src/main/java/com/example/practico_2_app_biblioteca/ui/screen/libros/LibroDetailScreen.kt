@@ -26,6 +26,7 @@ import com.example.practico_2_app_biblioteca.viewmodel.UiEvent
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LibroDetailScreen(libroId: Int, navController: NavController, viewModel: LibroViewModel) {
+    //obtener el estado del detalle del libro
     val detailState by viewModel.detailState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
@@ -87,6 +88,7 @@ fun LibroDetailScreen(libroId: Int, navController: NavController, viewModel: Lib
                         Text("Autor: ${libro.autor}")
                         Text("Editorial: ${libro.editorial}")
                         Text("ISBN: ${libro.isbn}")
+                        Text("Calificación: ${libro.calificacion}")
                         Spacer(modifier = Modifier.height(16.dp))
                         Text("Sinopsis", style = MaterialTheme.typography.titleMedium)
                         Text(libro.sinopsis)

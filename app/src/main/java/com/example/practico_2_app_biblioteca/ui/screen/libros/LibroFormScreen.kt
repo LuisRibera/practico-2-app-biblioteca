@@ -54,8 +54,11 @@ fun LibroFormScreen(
     val errorImagen = LibroValidator.validarImagen(imagen)
     val errorSinopsis = LibroValidator.validarSinopsis(sinopsis)
 
+    var submitAttempted by remember { mutableStateOf(false) }
+
     // Inicialización dependiente de si es CREAR o EDITAR
     LaunchedEffect(libroId) {
+        submitAttempted = false
         if (libroId != null) {
             viewModel.cargarLibroParaEditar(libroId)
             // No cargamos géneros al editar según las instrucciones
@@ -108,8 +111,8 @@ fun LibroFormScreen(
                 value = nombre,
                 onValueChange = { viewModel.setNombre(it) },
                 label = { Text("Nombre") },
-                isError = nombre.isNotEmpty() && errorNombre != null,
-                supportingText = { if (nombre.isNotEmpty() && errorNombre != null) Text(errorNombre) },
+                isError = (submitAttempted || nombre.isNotEmpty()) && errorNombre != null,
+                supportingText = { if ((submitAttempted || nombre.isNotEmpty()) && errorNombre != null) Text(errorNombre) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -118,8 +121,8 @@ fun LibroFormScreen(
                 value = autor,
                 onValueChange = { viewModel.setAutor(it) },
                 label = { Text("Autor") },
-                isError = autor.isNotEmpty() && errorAutor != null,
-                supportingText = { if (autor.isNotEmpty() && errorAutor != null) Text(errorAutor) },
+                isError = (submitAttempted || autor.isNotEmpty()) && errorAutor != null,
+                supportingText = { if ((submitAttempted || autor.isNotEmpty()) && errorAutor != null) Text(errorAutor) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -128,8 +131,8 @@ fun LibroFormScreen(
                 value = editorial,
                 onValueChange = { viewModel.setEditorial(it) },
                 label = { Text("Editorial") },
-                isError = editorial.isNotEmpty() && errorEditorial != null,
-                supportingText = { if (editorial.isNotEmpty() && errorEditorial != null) Text(errorEditorial) },
+                isError = (submitAttempted || editorial.isNotEmpty()) && errorEditorial != null,
+                supportingText = { if ((submitAttempted || editorial.isNotEmpty()) && errorEditorial != null) Text(errorEditorial) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -138,8 +141,8 @@ fun LibroFormScreen(
                 value = isbn,
                 onValueChange = { viewModel.setIsbn(it) },
                 label = { Text("ISBN (10 o 13 dígitos)") },
-                isError = isbn.isNotEmpty() && errorIsbn != null,
-                supportingText = { if (isbn.isNotEmpty() && errorIsbn != null) Text(errorIsbn) },
+                isError = (submitAttempted || isbn.isNotEmpty()) && errorIsbn != null,
+                supportingText = { if ((submitAttempted || isbn.isNotEmpty()) && errorIsbn != null) Text(errorIsbn) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -149,8 +152,8 @@ fun LibroFormScreen(
                 value = imagen,
                 onValueChange = { viewModel.setImagen(it) },
                 label = { Text("URL de la imagen") },
-                isError = imagen.isNotEmpty() && errorImagen != null,
-                supportingText = { if (imagen.isNotEmpty() && errorImagen != null) Text(errorImagen) },
+                isError = (submitAttempted || imagen.isNotEmpty()) && errorImagen != null,
+                supportingText = { if ((submitAttempted || imagen.isNotEmpty()) && errorImagen != null) Text(errorImagen) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri)
@@ -160,8 +163,8 @@ fun LibroFormScreen(
                 value = sinopsis,
                 onValueChange = { viewModel.setSinopsis(it) },
                 label = { Text("Sinopsis") },
-                isError = sinopsis.isNotEmpty() && errorSinopsis != null,
-                supportingText = { if (sinopsis.isNotEmpty() && errorSinopsis != null) Text(errorSinopsis) },
+                isError = (submitAttempted || sinopsis.isNotEmpty()) && errorSinopsis != null,
+                supportingText = { if ((submitAttempted || sinopsis.isNotEmpty()) && errorSinopsis != null) Text(errorSinopsis) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = false,
                 minLines = 3,
@@ -198,9 +201,10 @@ fun LibroFormScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
+//si es edicion llama a
             Button(
                 onClick = {
+                    submitAttempted = true
                     if (libroId != null) viewModel.editarLibro(libroId)
                     else viewModel.crearLibro()
                 },
